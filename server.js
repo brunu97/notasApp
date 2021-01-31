@@ -12,7 +12,7 @@ app.use(expresssSessao({
     name: "sessaoID", // Nome do Utilizador
     secret: "7986292486187982",
     cookie: {
-      maxAge: 60000, // 1 Minuto
+      maxAge: 60000000, 
       sameSite: true,
       httpOnly: true
     }
@@ -25,7 +25,7 @@ function utilizador(n, s) {
      this.Notas = [];
 }
 
-var user = new utilizador("1", "1"); // cria um Utilizador de testes
+var user = new utilizador("teste", "teste"); // cria um Utilizador de testes
 Utilizadores.push(user);
 
 function obtemNotasUser(nomeUser) {
@@ -62,6 +62,27 @@ app.post("/login", jsonParser, (req, res) => {
         }
     }
     res.json({valido: 0})
+});
+
+app.post("/novo_user", jsonParser, (req, res) => {
+    
+    for (k in Utilizadores){
+        if (Utilizadores[k].nome == req.body.u_nome) {
+            res.json({resultado: "USER_EXISTE"})
+            return;
+        } 
+    }
+    var user = new utilizador(req.body.u_nome, req.body.u_senha); // cria um Utilizador
+    Utilizadores.push(user);
+    res.json({resultado: "USER_CRIADO"})
+});
+
+app.get("/sair", jsonParser, (req, res) => { // Sair da conta
+    console.log(req.session.sessaoID)
+    if (req.session.sessaoID) {
+        req.session.destroy();
+        res.json({valido: 1});
+    }
 });
 
 app.post("/removenota", jsonParser, (req, res) => { // REMOVE NOTAS

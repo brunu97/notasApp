@@ -1,4 +1,4 @@
-#sec_login {
+#sec_login, #sec_registar {
 	
 	/*Centra */
 	left: 50%;
@@ -32,4 +32,15 @@
 	
 	border-radius: 20px;
 	padding: 30px;
+}
+
+
+footer {
+	position: fixed;
+	text-align: center;
+	padding: 3px;
+	bottom: 0;
+	left: 0;
+	color: white;
+	width: 100%;
 }

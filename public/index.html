@@ -11,6 +11,19 @@
     </head>
 
     <body>
+        
+        <nav class="navbar bg-primary">
+            <div class="container-fluid">
+                <span class="navbar-brand" style="font-size: 25px;" >NotasApp</span>
+                <ul class="nav navbar-nav navbar-right" style="padding: 10px;">
+                  <li><button id="sair" class="btn btn-primary mb-1">Sair</button></li>
+                </ul>
+              </div>
+        </nav>
+
+       
+
+        <div class="container" style="padding-top: 2%;">
         <section id="sec_login" style="display: none;">
             Utilizador: <input type="text" id="input_usernome" name="i_user">
             <br>
@@ -19,6 +32,17 @@
             <br>
             <br>
             <button class="btn btn-primary mb-2" id="loginbnt">Entrar</button>
+            <button class="btn btn-primary mb-2" id="registar">Nova Conta</button>
+        </section>
+
+        <section id="sec_registar" style="display: none;">
+            Novo Utilizador: <input type="text" id="input_usernome_reg" name="i_user">
+            <br>
+            <br>
+            Senha: <input type="password" id="input_usersenha_reg" name="i_nsenha">
+            <br>
+            <br>
+            <button class="btn btn-primary mb-2" id="regbnt">Registar</button>
         </section>
 
         <section id="sec_notas" style="display: none;">
@@ -28,8 +52,14 @@
 
             <div>
                 <input type="text" id="input_nota" name="i_nota">
-                <button  class="btn btn-primary mb-2" id="adicionaNota">Adicionar Nota</button>
+                <button class="btn btn-primary mb-2" id="adicionaNota">Adicionar Nota</button>
+                <i>Clique numa nota para apagar</i>
             </div>
         </section>
+        </div>
+
+       <footer class="bg-primary">
+           Bruno Silva 2021 - <a class="btn-primary stretched-link"href="https://github.com/brunu97/notasApp">NotasApp GitHub</a>
+       </footer>
     </body>
 </html>

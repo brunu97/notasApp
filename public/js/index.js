@@ -27,6 +27,12 @@ async function obtemNotas(){
     });
 }
 
+$(document).on("click","#registar", function() {
+    $("#sec_login").fadeOut(100, function() { 
+        $("#sec_registar").fadeIn(350)
+   });
+});
+
 $(document).on("click","#adicionaNota", function() {
     let textoNota = document.getElementById("input_nota").value;
     document.getElementById("input_nota").value = ""
@@ -81,6 +87,34 @@ $(document).on("click","#loginbnt", function() {
     });
 });
 
+$(document).on("click","#regbnt", function() {
+    let nome = document.getElementById("input_usernome_reg").value;
+    let senha = document.getElementById("input_usersenha_reg").value;
+
+    fetch("/novo_user", {
+        headers: { "Content-Type": "application/json", },
+        method: "POST",
+        body: JSON.stringify({
+          u_nome: nome,
+          u_senha: senha,
+        }),
+    }).then(async (resposta) => {
+        dados = await resposta.json()
+
+        if (dados.resultado == "USER_CRIADO"){
+            $("#sec_registar").fadeOut(100, function() { 
+                $("#sec_notas").fadeIn(350)
+                document.getElementById("input_usernome_reg").value = ""
+                document.getElementById("input_usersenha_reg").value = ""
+
+                obtemNotas();
+           });
+        } else {
+            document.getElementById("sec_login").style.backgroundColor = "red"
+        }
+    });
+});
+
 
 $(document).on("click",".apagaNota", function() { // Apaga notas ao clicar no texto
     let id = $(this).attr('id')
@@ -103,6 +137,18 @@ $(document).on("click",".apagaNota", function() { // Apaga notas ao clicar no te
             nota.id = dados[k]["idNota"];
             nota.classList.add("apagaNota");
             div.appendChild(nota)
+        }
+    });
+});
+
+$(document).on("click","#sair", function() {
+    fetch("/sair").then(async (resposta) => {
+        dados = await resposta.json()
+        if (dados.valido == 1){
+            $("#sec_notas").fadeOut(100, function() { 
+                $("#sec_login").fadeIn(350)
+                $("#listasNotas").html("");
+            });
         }
     });
 });
