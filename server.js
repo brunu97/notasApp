@@ -3,7 +3,7 @@ var bodyParser = require('body-parser')
 const expresssSessao = require("express-session")
 const app = express();
 
-const PORTA = 5000;
+const PORTA = 5000 || process.env.PORT;
 var jsonParser = bodyParser.json()
 
 app.use(expresssSessao({
