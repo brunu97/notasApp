@@ -1,0 +1,35 @@
+#sec_login {
+	
+	/*Centra */
+	left: 50%;
+	transform: translate(-50%, 0);
+	
+	position: fixed;
+
+	width: 400px;
+    margin: 50px auto;
+	font-size: 15px;
+    margin-bottom: 15px;
+	background-color: #7497d8ad;
+	border-radius: 20px;
+	padding: 30px;
+    
+    padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+#sec_notas {
+    /*Centra */
+	left: 50%;
+	transform: translate(-50%, 0);
+	
+	position: fixed;
+
+	width: 400px;
+    margin: 50px auto;
+	font-size: 15px;
+    margin-bottom: 15px;
+	
+	border-radius: 20px;
+	padding: 30px;
+}
