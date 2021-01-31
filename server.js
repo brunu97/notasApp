@@ -5,6 +5,7 @@ const app = express();
 
 const PORTA = process.env.PORT || 5000;
 var jsonParser = bodyParser.json()
+const {body, validationResult} = require('express-validator');
 
 app.use(expresssSessao({
     resave: false,
@@ -17,6 +18,18 @@ app.use(expresssSessao({
       httpOnly: true
     }
   }))
+
+
+// Utilizado para validar o registo
+regrasValidacaoRegisto = [
+    body('u_nome', 'Nome não pode ser vazio').notEmpty(),
+    body('u_senha', 'Senha não pode ser vazia').notEmpty()
+];
+resultadoValidacao = (req, res, next) => {
+    const erros = validationResult(req);
+    if (!erros.isEmpty()) return res.json({ resultado: erros.array()[0] });
+    next();
+};
 
 var Utilizadores = []
 function utilizador(n, s) {
@@ -64,7 +77,7 @@ app.post("/login", jsonParser, (req, res) => {
     res.json({valido: 0})
 });
 
-app.post("/novo_user", jsonParser, (req, res) => {
+app.post("/novo_user", jsonParser, regrasValidacaoRegisto, resultadoValidacao, (req, res) => {
     
     for (k in Utilizadores){
         if (Utilizadores[k].nome == req.body.u_nome) {
@@ -74,11 +87,11 @@ app.post("/novo_user", jsonParser, (req, res) => {
     }
     var user = new utilizador(req.body.u_nome, req.body.u_senha); // cria um Utilizador
     Utilizadores.push(user);
+    req.session.sessaoID = req.body.u_nome;
     res.json({resultado: "USER_CRIADO"})
 });
 
 app.get("/sair", jsonParser, (req, res) => { // Sair da conta
-    console.log(req.session.sessaoID)
     if (req.session.sessaoID) {
         req.session.destroy();
         res.json({valido: 1});

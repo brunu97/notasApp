@@ -75,14 +75,13 @@ $(document).on("click","#loginbnt", function() {
         if (dados.valido == 1){
             $("#sec_login").fadeOut(100, function() { 
                 $("#sec_notas").fadeIn(350)
-                document.getElementById("input_usernome").value = ""
-                document.getElementById("input_usersenha").value = ""
-                document.getElementById("sec_login").style.backgroundColor = "#7497d8ad"
-
+                document.getElementById("input_usernome").value = "";
+                document.getElementById("input_usersenha").value = "";
+                document.getElementById("msgErro_login").innerHTML = "";
                 obtemNotas();
            });
         } else {
-            document.getElementById("sec_login").style.backgroundColor = "red"
+            document.getElementById("msgErro_login").innerHTML = "Credenciais errados.";
         }
     });
 });
@@ -100,18 +99,20 @@ $(document).on("click","#regbnt", function() {
         }),
     }).then(async (resposta) => {
         dados = await resposta.json()
-
         if (dados.resultado == "USER_CRIADO"){
             $("#sec_registar").fadeOut(100, function() { 
                 $("#sec_notas").fadeIn(350)
                 document.getElementById("input_usernome_reg").value = ""
                 document.getElementById("input_usersenha_reg").value = ""
-
+                document.getElementById("msgErro_reg").innerHTML = "";
                 obtemNotas();
            });
+        } else if (dados.resultado == "USER_EXISTE") {
+            document.getElementById("msgErro_reg").innerHTML = "Esse nome de utilizador já existe.";
         } else {
-            document.getElementById("sec_login").style.backgroundColor = "red"
+            document.getElementById("msgErro_reg").innerHTML = dados.resultado.msg;
         }
+
     });
 });
 
