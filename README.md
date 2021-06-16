@@ -2,5 +2,5 @@
 
 Simples aplicação web em NodeJS web de apontamentos, com login.
 
-Aplicação ao Vivo
+Aplicação ao Vivo: (A cada 30 minutos de inatividade do servidor é feito um reset) 
 https://notasappserver.herokuapp.com
